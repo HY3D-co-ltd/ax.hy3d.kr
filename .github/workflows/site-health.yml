@@ -1,0 +1,13 @@
+name: Check published site
+on:
+  schedule:
+    - cron: '23 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 check_site.py
