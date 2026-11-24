@@ -31,6 +31,8 @@ class Page(HTMLParser):
             self.canonical = attrs.get("href")
         elif tag in {"a", "link"} and "href" in attrs:
             self.links.add(attrs["href"])
+        elif tag in {"img", "script"} and attrs.get("src"):
+            self.links.add(attrs["src"])
         elif tag == "script" and attrs.get("type") == "application/ld+json":
             self.reading_schema = True
 
@@ -39,6 +41,13 @@ class Page(HTMLParser):
             entities = json.loads(data)
             for entity in entities if isinstance(entities, list) else [entities]:
                 self.types.add(entity["@type"])
+                if entity["@type"] == "FAQPage":
+                    questions = entity.get("mainEntity")
+                    if not isinstance(questions, list) or not questions:
+                        raise ValueError("FAQPage mainEntity must be a nonempty array")
+                    for question in questions:
+                        if not question.get("name") or not question.get("acceptedAnswer", {}).get("text"):
+                            raise ValueError("FAQ question and answer must contain text")
 
     def handle_endtag(self, tag):
         if tag == "script":
