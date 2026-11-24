@@ -5,6 +5,12 @@
 .contact-hero-inner {
   padding-block: 44px;
 }
+.contact-intro {
+  margin-top: 16px;
+  color: #dce6f2;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
 .contact {
   padding-bottom: 40px;
 }
