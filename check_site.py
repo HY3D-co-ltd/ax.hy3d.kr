@@ -25,8 +25,8 @@ class Page(HTMLParser):
         attrs = dict(attrs)
         if tag == "title":
             self.has_title = True
-        elif tag == "meta" and "name" in attrs:
-            self.meta[attrs["name"]] = attrs.get("content", "")
+        elif tag == "meta" and ("name" in attrs or "property" in attrs):
+            self.meta[attrs.get("name", attrs.get("property"))] = attrs.get("content", "")
         elif tag == "link" and attrs.get("rel") == "canonical":
             self.canonical = attrs.get("href")
         elif tag in {"a", "link"} and "href" in attrs:
@@ -75,6 +75,16 @@ def main():
                 raise ValueError("Expected title and meta description")
             if page.canonical != PUBLIC_ORIGIN + route:
                 raise ValueError(f"Unexpected canonical URL: {page.canonical}")
+            if not all(page.meta.get(key) for key in ("og:title", "og:description", "og:image")):
+                raise ValueError("Missing social preview title, description, or image")
+            if page.meta.get("og:url") != page.canonical:
+                raise ValueError("Social preview URL must match the canonical URL")
+            preview_image = page.meta["og:image"]
+            if not preview_image.startswith(PUBLIC_ORIGIN + "/assets/"):
+                raise ValueError("Social preview image must use an absolute site asset URL")
+            if page.meta.get("twitter:card") != "summary_large_image" or page.meta.get("twitter:image") != preview_image:
+                raise ValueError("Social image must be consistent across preview formats")
+            links.add(origin + urlsplit(preview_image).path)
             if "noindex" in page.meta.get("robots", ""):
                 raise ValueError("Remove noindex from the published page")
             if route not in {"/", "/contact/"} and not {"Product", "FAQPage"} <= page.types:
