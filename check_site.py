@@ -7,7 +7,7 @@ from urllib.parse import urljoin, urlsplit
 from urllib.request import urlopen
 from xml.etree import ElementTree
 
-ROUTES = ("/", "/makit/", "/wbs/", "/ai-call/", "/ax-workspace/", "/contact/")
+ROUTES = ("/", "/makit/", "/wbs/", "/ai-call/", "/ax-workspace/", "/ax-works/", "/contact/")
 PUBLIC_ORIGIN = "https://ax.hy3d.kr"
 
 
