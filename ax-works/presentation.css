@@ -1,0 +1,54 @@
+.ax-screen {
+  margin: 0;
+  min-width: 0;
+}
+
+#download-status {
+  margin-top: .75rem;
+  font-size: .9375rem;
+}
+
+.ax-screen a,
+.ax-estimate a {
+  display: block;
+}
+
+.ax-screen img,
+.ax-estimate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.ax-screen figcaption {
+  margin-top: .75rem;
+  color: inherit;
+  font-size: .875rem;
+}
+
+.ax-estimate {
+  min-width: 0;
+}
+
+@media (min-width: 761px) {
+  #solutions .ax-hub-card {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+
+  #solutions .ax-hub-card .art {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  #solutions .ax-hub-card .art img {
+    max-height: 16rem;
+  }
+
+  #solutions .ax-hub-card .card-content {
+    align-self: center;
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+}
