@@ -58,6 +58,11 @@ def fetch(url):
     with urlopen(url, timeout=15) as response:
         if response.status != 200:
             raise ValueError(f"Expected HTTP 200, received {response.status}")
+        if urlsplit(url).path.endswith(".exe"):
+            header = response.read(2)
+            if header != b"MZ":
+                raise ValueError("Download link did not return a Windows executable")
+            return header
         return response.read()
 
 
