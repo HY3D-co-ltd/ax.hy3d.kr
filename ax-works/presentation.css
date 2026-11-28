@@ -3,6 +3,8 @@
   gap: clamp(2rem, 5vw, 4rem);
 }
 .ax-hero .lead { max-width: 33rem; }
+.ax-hero .hero-inner > div { container-type: inline-size; }
+.ax-hero .ax-descriptor { font-size: clamp(1rem, 6.7cqi, 2.1rem); }
 .ax-loop-flow { margin: 0; padding: clamp(1.25rem, 3vw, 2rem); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; }
 .ax-loop-flow figcaption { font-size: 1.2rem; font-weight: 700; }
 .ax-loop-flow ol { margin: 1rem 0; padding-inline-start: 1.6rem; }
