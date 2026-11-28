@@ -106,3 +106,22 @@ body:has(.ax-viewer[open]) { overflow: hidden; }
     padding: clamp(1.5rem, 4vw, 3rem);
   }
 }
+
+.ax-pricing { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.ax-pricing h2 { margin: 0 0 1.4rem; }
+.ax-plan-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.ax-plan { background: white; border: 1px solid var(--line); border-radius: 10px; padding: clamp(1.1rem, 2vw, 1.7rem); }
+.ax-plan h3 { margin: 0; color: var(--accent); font-size: 1.125rem; }
+.ax-plan .plan-price { margin: .65rem 0 1.25rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem; }
+.plan-price strong { font-size: clamp(1.4rem, 2.3vw, 2rem); letter-spacing: -.04em; line-height: 1.3; }
+.plan-price span, .plan-credit span { font-size: .875rem; color: var(--muted); }
+.ax-plan .plan-credit { display: grid; gap: .1rem; margin: 0; padding-top: .85rem; border-top: 1px solid var(--line); }
+.plan-credit strong { font-size: 1rem; }
+@media (max-width: 900px) { .ax-plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) {
+  .ax-plan-grid { gap: .6rem; }
+  .ax-plan { padding: .9rem .7rem; }
+  .plan-price strong { font-size: 1.25rem; }
+  .plan-credit strong { font-size: .875rem; }
+}
+@media (max-width: 350px) { .ax-plan-grid { grid-template-columns: 1fr; } }
