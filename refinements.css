@@ -84,8 +84,10 @@ h1, h2, h3 { letter-spacing: -.035em; }
 .contact { padding-block: 40px; }
 .contact-solution-grid a { padding: 24px; }
 .contact-solution-grid p { font-size: .9375rem; }
+@media (min-width: 761px) {
+  #solutions .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+}
 @media (min-width: 1060px) {
-  #solutions .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
   #solutions .card-content { padding: 22px 20px; }
   #solutions .card-content h3 { font-size: 1.25rem; }
   #solutions .card-content p { font-size: .9375rem; }
