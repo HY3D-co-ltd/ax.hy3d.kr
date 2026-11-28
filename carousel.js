@@ -6,17 +6,17 @@ const status = carousel.querySelector('.carousel-status');
 let current = 0;
 let scrollTimer;
 let autoTimer;
-let hovered = false;
+let touching = false;
 let manuallyPaused = false;
 let onScreen = true;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 function scheduleAdvance() {
   clearTimeout(autoTimer);
-  if (reducedMotion.matches || document.hidden || !onScreen || hovered || manuallyPaused || carousel.contains(document.activeElement)) return;
+  if (reducedMotion.matches || document.hidden || !onScreen || touching || manuallyPaused || viewport.querySelector('a:focus')) return;
   autoTimer = setTimeout(() => {
     viewport.scrollTo({ left: ((current + 1) % slides.length) * viewport.clientWidth, behavior: 'smooth' });
-  }, 7000);
+  }, 3000);
 }
 
 function updateCurrent() {
@@ -28,6 +28,7 @@ function updateCurrent() {
 }
 
 viewport.addEventListener('scroll', () => {
+  clearTimeout(autoTimer);
   clearTimeout(scrollTimer);
   scrollTimer = setTimeout(updateCurrent, 120);
 }, { passive: true });
@@ -51,10 +52,13 @@ new ResizeObserver(() => {
   viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'instant' });
 }).observe(viewport);
 
-carousel.addEventListener('pointerenter', (event) => {
-  if (event.pointerType === 'mouse') { hovered = true; scheduleAdvance(); }
-});
-carousel.addEventListener('pointerleave', () => { hovered = false; scheduleAdvance(); });
+function updateTouch(event) {
+  touching = event.touches.length > 0;
+  scheduleAdvance();
+}
+for (const type of ['touchstart', 'touchend', 'touchcancel']) {
+  viewport.addEventListener(type, updateTouch, { passive: true });
+}
 carousel.addEventListener('focusin', scheduleAdvance);
 carousel.addEventListener('focusout', () => setTimeout(scheduleAdvance, 0));
 document.addEventListener('visibilitychange', scheduleAdvance);
