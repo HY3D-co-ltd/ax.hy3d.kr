@@ -117,6 +117,9 @@ body:has(.ax-viewer[open]) { overflow: hidden; }
 .plan-price span, .plan-credit span { font-size: .875rem; color: var(--muted); }
 .ax-plan .plan-credit { display: grid; gap: .1rem; margin: 0; padding-top: .85rem; border-top: 1px solid var(--line); }
 .plan-credit strong { font-size: 1rem; }
+.ax-plan .plan-note { margin: .75rem 0 0; color: var(--muted); font-size: .875rem; line-height: 1.5; }
+.ax-plan .plan-services { padding-inline-start: 1.1em; }
+.plan-services li + li { margin-top: .15rem; }
 @media (max-width: 900px) { .ax-plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) {
   .ax-plan-grid { gap: .6rem; }
